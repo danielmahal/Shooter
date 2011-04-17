@@ -37,8 +37,10 @@ var SocketHandler = (function() {
 		
 		var ship = this.model.ships[data.id];
 		
-		ship.targetPosition = new THREE.Vector3(data.p.x, data.p.y, data.p.z);
-		ship.targetRotation = new THREE.Vector3(data.r.x, data.r.y, data.r.z);
+		if(ship.obj != null) {
+			ship.targetPosition = new THREE.Vector3(data.p.x, data.p.y, data.p.z);
+			ship.targetRotation = new THREE.Vector3(data.r.x, data.r.y, data.r.z);
+		}
 	}
 	
 	SocketHandler.prototype.userDisconnectHandler = function(data) {
