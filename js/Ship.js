@@ -12,16 +12,18 @@ var Ship = (function() {
 		
 		// var material = new THREE.MeshPhongMaterial( { ambient: 0x333333, color: 0x000000, specular: 0xaaaaaa, shininess: 20, shading: THREE.SmoothShading }  );
 		
-		this.uniforms2 = {
-			time: { type: "f", value: 1.0 },
-			resolution: { type: "v2", value: new THREE.Vector2() },
-			texture: { type: "t", value: 0, texture: THREE.ImageUtils.loadTexture( "libs/three-js/examples/textures/disturb.jpg" ) }
-		};
+		// this.uniforms2 = {
+		// 	time: { type: "f", value: 1.0 },
+		// 	resolution: { type: "v2", value: new THREE.Vector2() },
+		// 	texture: { type: "t", value: 0, texture: THREE.ImageUtils.loadTexture( "libs/three-js/examples/textures/disturb.jpg" ) }
+		// };
 		
-		this.uniforms2.texture.texture.wrapS = this.uniforms2.texture.texture.wrapT = THREE.Repeat;
+		// this.uniforms2.texture.texture.wrapS = this.uniforms2.texture.texture.wrapT = THREE.Repeat;
 		
 		var material = new THREE.MeshShaderMaterial({
-			uniforms: this.uniforms2,
+			uniforms: {
+				shipColor: THREE.Color(0x00FFFF)
+			},
 			vertexShader: document.getElementById('vertexShader').textContent,
 			fragmentShader: document.getElementById('fragment_shader2').textContent
 		});
