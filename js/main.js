@@ -8,9 +8,17 @@ var updateLoop = function() {
 var renderLoop = function() {
 	requestAnimationFrame(renderLoop);
 	app.render();
+	stats.update();
 }
 
-var app = new Shooter(document.getElementById('container'));
+var container = document.getElementById('container');
+
+var app = new Shooter(container);
+
+stats = new Stats();
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.top = '0px';
+container.appendChild( stats.domElement );
 
 updateLoop();
 renderLoop();

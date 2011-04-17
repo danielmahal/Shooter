@@ -4,7 +4,7 @@ var KeyHandler = (function() {
 		this.keyListeners = {};
 		
 		document.addEventListener('keydown', function(e) {
-			console.log('Pressed:', e.which);
+			// console.log('Pressed:', e.which);
 			var key = e.which;
 			if(that.keyListeners[key] != undefined) {
 				that.keyListeners[key].keyDown = true;

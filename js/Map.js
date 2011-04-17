@@ -1,5 +1,7 @@
 var Map = (function() {
 	function Map(scene) {
+		scene.fog = new THREE.FogExp2( 0xf1f9ff, 0.002 );
+		
 		var material = new THREE.MeshPhongMaterial( { ambient: 0x333333, color: 0x000000, specular: 0x000000, shading: THREE.SmoothShading }  );
 		var ground = new THREE.Mesh(new THREE.Plane(1000, 1000, 1, 1), material);
 		

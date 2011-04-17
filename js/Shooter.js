@@ -1,29 +1,37 @@
 var Shooter = (function() {
 	function Shooter(container) {
+		this.model = {
+			ships: {}
+		};
+		
 		this.container = container;
 		
-		this.camera = new Camera();
-		this.scene = new THREE.Scene();
-		this.scene.fog = new THREE.FogExp2( 0xf1f9ff, 0.0012 );
 		this.keyHandler = new KeyHandler();
 		
-		this.map = new Map(this.scene);
-		this.ship = new Ship(this.scene);
+		this.model.camera = new Camera();
+		this.model.scene = new THREE.Scene();
 		
-		this.camera.target = this.ship;
+		this.model.map = new Map(this.model.scene);
+		this.model.userShip = new UserShip(this.model.scene, this.keyHandler);
 		
-		this.keyHandler.add(38, this.ship, this.ship.accelerate);
-		this.keyHandler.add(37, this.ship, this.ship.turnLeft);
-		this.keyHandler.add(39, this.ship, this.ship.turnRight);
-		this.keyHandler.add(40, this.ship, this.ship.deccelerate);
+		this.model.camera.target = this.model.userShip;
 		
-		this.renderer = new Renderer(this.container, this.scene, this.camera.camera);
+		this.socketHandler = new SocketHandler(this.model);
+		
+		this.renderer = new Renderer(this.container, this.model.scene, this.model.camera.camera);
 	}
 	
 	Shooter.prototype.update = function() {
 		this.keyHandler.trigger();
-		this.ship.update();
-		this.camera.update();
+		
+		for(i in this.model.ships) {
+			this.model.ships[i].update();
+		}
+		
+		this.model.userShip.update();
+		this.model.userShip.sendUpdate(this.socketHandler);
+		
+		this.model.camera.update();
 	}
 	
 	Shooter.prototype.render = function() {
