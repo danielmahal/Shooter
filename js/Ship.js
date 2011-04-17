@@ -2,7 +2,7 @@ var Ship = function(scene) {
 	var that = this,
 		timer = 0,
 		turnSpeed = .04,
-		banking = turnSpeed*1.5;
+		banking = turnSpeed*1.4;
 	
 	
 	this.obj = null;
@@ -17,7 +17,7 @@ var Ship = function(scene) {
 		
 		timer++;
 		
-		this.obj.rotation.z *= .9;
+		this.obj.rotation.z *= .94;
 		
 		this.obj.position.y = Math.cos(timer * .03) * 5;
 		this.momentum *= .99;
