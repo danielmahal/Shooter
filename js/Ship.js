@@ -1,7 +1,9 @@
 var Ship = function(scene) {
 	var that = this,
-		gun,
-		timer = 0;
+		timer = 0,
+		turnSpeed = .04,
+		banking = turnSpeed*1.5;
+	
 	
 	this.obj = null;
 	this.momentum = 0;
@@ -9,8 +11,15 @@ var Ship = function(scene) {
 	this.rotation = 0;
 	
 	this.update = function() {
+		if(this.obj == null) {
+			return;
+		}
+		
 		timer++;
-		this.obj.position.y = Math.cos(timer * .03) * 2;
+		
+		this.obj.rotation.z *= .9;
+		
+		this.obj.position.y = Math.cos(timer * .03) * 5;
 		this.momentum *= .99;
 		this.angle += (this.rotation - this.angle) * .05;
 		this.obj.position.x += Math.sin(that.angle) * that.momentum;
@@ -22,12 +31,15 @@ var Ship = function(scene) {
 	}
 	
 	this.turnRight = function() {
-		that.rotation -= .1;
+		that.rotation -= turnSpeed;
+		that.obj.rotation.z += banking;
+		
 		updateRotation();
 	};
 	
 	this.turnLeft = function() {
-		that.rotation += .1;
+		that.rotation += turnSpeed;
+		that.obj.rotation.z -= banking;
 		updateRotation();
 	};
 	
@@ -35,12 +47,16 @@ var Ship = function(scene) {
 		that.momentum = Math.min(that.momentum + .4, 10);
 	};
 	
+	this.boost = function() {
+		that.momentum = 20;
+	};
+	
 	this.deaccelerate = function() {
 		that.momentum = Math.max(that.momentum - .2, -5);
 	};
 	
 	(function() {
-		var material = new THREE.MeshPhongMaterial( { ambient: 0x333333, color: 0x000000, specular: 0xffffff, shininess: 50, shading: THREE.SmoothShading }  );
+		var material = new THREE.MeshPhongMaterial( { ambient: 0x333333, color: 0x000000, specular: 0xaaaaaa, shininess: 20, shading: THREE.SmoothShading }  );
 		loader = new THREE.JSONLoader( true );
 		
 		loader.load({

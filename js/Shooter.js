@@ -6,10 +6,11 @@ var Shooter = function(container) {
 		renderer,
 		ship,
 		map,
-		keyListener
+		keyHandler
 	;
 	
 	this.update = function() {
+		keyHandler.trigger();
 		ship.update();
 		camera.update();
 	};
@@ -21,17 +22,19 @@ var Shooter = function(container) {
 	(function() {
 		camera = new Camera();
 		scene = new THREE.Scene();
+		scene.fog = new THREE.FogExp2( 0xf1f9ff, 0.0009 );
 		
 		map = new Map(scene);
 		ship = new Ship(scene);
 		
 		camera.target = ship;
 		
-		KeyHandler = new KeyHandler();
-		KeyHandler.add(38, true, ship.accelerate);
-		KeyHandler.add(37, true, ship.turnLeft);
-		KeyHandler.add(39, true, ship.turnRight);
-		KeyHandler.add(40, true, ship.deaccelerate);
+		keyHandler = new KeyHandler();
+		keyHandler.add(38, true, ship.accelerate);
+		keyHandler.add(37, true, ship.turnLeft);
+		keyHandler.add(39, true, ship.turnRight);
+		keyHandler.add(40, true, ship.deaccelerate);
+		keyHandler.add(32, true, ship.boost);
 		
 		renderer = new Renderer(container, scene, camera.camera);
 	})();

@@ -10,7 +10,9 @@ var Camera = function() {
 	};
 	
 	this.update = function() {
-		if(that.target) {
+		if(that.target.obj != null) {
+			that.camera.fov = 20;
+			
 			that.camera.target.position.x = that.target.obj.position.x;
 			that.camera.target.position.z = that.target.obj.position.z;
 			
@@ -26,8 +28,8 @@ var Camera = function() {
 	
 	(function() {
 		that.camera = new THREE.Camera( 60, window.innerWidth / window.innerHeight, 1, 2000 );
-		that.camera.position.y = 70;
 		
-		that.camera.target.position.y = 20;
+		that.camera.position.y = 80;
+		that.camera.target.position.y = 40;
 	})();
 }
