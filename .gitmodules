@@ -1,3 +1,9 @@
 [submodule "libs/three-js"]
 	path = libs/three-js
 	url = https://github.com/mrdoob/three.js
+[submodule "libs/Socket.IO"]
+	path = libs/Socket.IO
+	url = git://github.com/LearnBoost/Socket.IO-node.git
+[submodule "libs/husky"]
+	path = libs/husky
+	url = git@github.com:unfold/Husky.git

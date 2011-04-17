@@ -6,7 +6,8 @@ var Shooter = function(container) {
 		renderer,
 		ship,
 		map,
-		keyHandler
+		keyHandler,
+		webSocketHandler
 	;
 	
 	this.update = function() {
@@ -22,14 +23,14 @@ var Shooter = function(container) {
 	(function() {
 		camera = new Camera();
 		scene = new THREE.Scene();
-		scene.fog = new THREE.FogExp2( 0xf1f9ff, 0.0009 );
+		scene.fog = new THREE.FogExp2( 0xf1f9ff, 0.0012 );
+		keyHandler = new KeyHandler();
 		
 		map = new Map(scene);
 		ship = new Ship(scene);
 		
 		camera.target = ship;
 		
-		keyHandler = new KeyHandler();
 		keyHandler.add(38, true, ship.accelerate);
 		keyHandler.add(37, true, ship.turnLeft);
 		keyHandler.add(39, true, ship.turnRight);

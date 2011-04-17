@@ -3,7 +3,7 @@ var Map = function(scene) {
 	
 	(function() {
 		var material = new THREE.MeshPhongMaterial( { ambient: 0x333333, color: 0x000000, specular: 0x000000, shading: THREE.SmoothShading }  );
-		var ground = new THREE.Mesh(new THREE.Plane(3000, 3000, 1, 1), material);
+		var ground = new THREE.Mesh(new THREE.Plane(1000, 1000, 1, 1), material);
 		
 		ground.rotation.x = (Math.PI * 3)/2;
 		ground.position.y = -100;
