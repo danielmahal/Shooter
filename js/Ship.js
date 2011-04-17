@@ -22,7 +22,7 @@ var Ship = (function() {
 		
 		var material = new THREE.MeshShaderMaterial({
 			uniforms: {
-				shipColor: THREE.Vector3(1,0,0)
+				shipColor: new THREE.Vector3(1,0,0)
 			},
 			vertexShader: document.getElementById('vertexShader').textContent,
 			fragmentShader: document.getElementById('fragment_shader2').textContent

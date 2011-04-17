@@ -15,8 +15,6 @@ var UserShip = (function() {
 	Husky.extend(UserShip, Ship);
 	
 	UserShip.prototype.update = function() {
-		this.uniforms2.time.value += .05;
-		
 		if(this.obj == null) {
 			return;
 		}
