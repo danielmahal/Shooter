@@ -1,15 +1,16 @@
-var Renderer = function(container, scene, camera) {
-	var that = this,
-		renderer
-	;
+var Renderer = (function() {
+	function Renderer(container, scene, camera) {
+		this.scene = scene;
+		this.camera = camera;
+		
+		this.renderer = new THREE.WebGLRenderer();
+		this.renderer.setSize( window.innerWidth, window.innerHeight );
+		container.appendChild( this.renderer.domElement );
+	}
 	
-	this.render = function() {
-		renderer.render(scene, camera);
-	};
+	Renderer.prototype.render = function() {
+		this.renderer.render(this.scene, this.camera);
+	}
 	
-	(function() {
-		renderer = new THREE.WebGLRenderer();
-		renderer.setSize( window.innerWidth, window.innerHeight );
-		container.appendChild( renderer.domElement );
-	})();
-}
+	return Renderer;
+})();

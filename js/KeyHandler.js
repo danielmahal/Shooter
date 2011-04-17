@@ -1,51 +1,56 @@
-var KeyHandler = function() {
-	var keyListeners = {};
+var KeyHandler = (function() {
+	function KeyHandler() {
+		var that = this;
+		this.keyListeners = {};
+		
+		document.addEventListener('keydown', function(e) {
+			console.log('Pressed:', e.which);
+			var key = e.which;
+			if(that.keyListeners[key] != undefined) {
+				that.keyListeners[key].keyDown = true;
+			}
+		});
+
+		document.addEventListener('keyup', function(e) {
+			var key = e.which;
+			if(that.keyListeners[key] != undefined) {
+				that.keyListeners[key].keyDown = false;
+			}
+		});
+	}
 	
-	this.add = function(key, repeat, callback) {
-		if(keyListeners[key] == undefined) {
-			keyListeners[key] = {
+	KeyHandler.prototype.forEachKey = function(key, fn) {
+		if(this.keyListeners[key] != undefined) {
+			for(i in this.keyListeners[key].handlers) {
+				fn(this.keyListeners[key]['handlers'][i]);
+			}
+		}
+	}
+	
+	KeyHandler.prototype.add = function(key, scope, callback) {
+		if(this.keyListeners[key] == undefined) {
+			this.keyListeners[key] = {
 				keyDown: false,
 				ready: true,
 				handlers: []
 			};
 		}
 		
-		keyListeners[key].handlers.push({
-			repeat: repeat,
+		this.keyListeners[key].handlers.push({
+			scope: scope,
 			callback: callback
 		});
 	}
 	
-	var forEachKey = function(key, fn) {
-		if(keyListeners[key] != undefined) {
-			for(i in keyListeners[key].handlers) {
-				fn(keyListeners[key]['handlers'][i]);
-			}
-		}
-	}
-	
-	this.trigger = function() {
-		for(i in keyListeners) {
-			if(keyListeners[i].keyDown) {
-				forEachKey(i, function(handler) {
-					handler.callback();
+	KeyHandler.prototype.trigger = function() {
+		for(i in this.keyListeners) {
+			if(this.keyListeners[i].keyDown) {
+				this.forEachKey(i, function(handler) {
+					handler.callback.call(handler.scope);
 				});
 			}
 		}
 	}
 	
-	document.addEventListener('keydown', function(e) {
-		console.log('Pressed:', e.which);
-		var key = e.which;
-		if(keyListeners[key] != undefined) {
-			keyListeners[key].keyDown = true;
-		}
-	});
-	
-	document.addEventListener('keyup', function(e) {
-		var key = e.which;
-		if(keyListeners[key] != undefined) {
-			keyListeners[key].keyDown = false;
-		}
-	});
-}
+	return KeyHandler;
+})();

@@ -1,35 +1,35 @@
-var Camera = function() {
-	var that = this;
-	
+var Camera = (function() {
 	var distance = 150;
 	
-	this.target = null;
+	function Camera() {
+		this.target = null;
+		
+		this.camera = new THREE.Camera( 60, window.innerWidth / window.innerHeight, 1, 2000 );
+		
+		this.camera.position.y = 80;
+		this.camera.target.position.y = 40;
+	}
 	
-	this.setTarget = function(obj) {
-		that.target = obj;
-	};
+	Camera.prototype.setTarget = function(obj) {
+		this.target = obj;
+	}
 	
-	this.update = function() {
-		if(that.target.obj != null) {
-			that.camera.fov = 20;
+	Camera.prototype.update = function() {
+		if(this.target.obj != null) {
+			this.camera.fov = 20;
 			
-			that.camera.target.position.x = that.target.obj.position.x;
-			that.camera.target.position.z = that.target.obj.position.z;
+			this.camera.target.position.x = this.target.obj.position.x;
+			this.camera.target.position.z = this.target.obj.position.z;
 			
 			var targetPosition = {
-				x: that.target.obj.position.x - Math.sin(that.target.rotation) * distance,
-				z: that.target.obj.position.z - Math.cos(that.target.rotation) * distance
+				x: this.target.obj.position.x - Math.sin(this.target.rotation) * distance,
+				z: this.target.obj.position.z - Math.cos(this.target.rotation) * distance
 			}
 			
-			that.camera.position.x += (targetPosition.x - that.camera.position.x) * .1;
-			that.camera.position.z += (targetPosition.z - that.camera.position.z) * .1;
+			this.camera.position.x += (targetPosition.x - this.camera.position.x) * .1;
+			this.camera.position.z += (targetPosition.z - this.camera.position.z) * .1;
 		}
-	};
+	}
 	
-	(function() {
-		that.camera = new THREE.Camera( 60, window.innerWidth / window.innerHeight, 1, 2000 );
-		
-		that.camera.position.y = 80;
-		that.camera.target.position.y = 40;
-	})();
-}
+	return Camera;
+})();

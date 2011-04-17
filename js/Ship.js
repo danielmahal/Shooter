@@ -1,61 +1,17 @@
-var Ship = function(scene) {
-	var that = this,
-		timer = 0,
-		turnSpeed = .04,
-		banking = turnSpeed*1.4;
+var Ship = (function() {
+	var turnSpeed = .04,
+		banking = turnSpeed * 1.4
+	;
 	
-	
-	this.obj = null;
-	this.momentum = 0;
-	this.angle = 0;
-	this.rotation = 0;
-	
-	this.update = function() {
-		if(this.obj == null) {
-			return;
-		}
+	function Ship(scene) {
+		var that = this;
 		
-		timer++;
+		this.timer = 0;
+		this.obj = null;
+		this.momentum = 0;
+		this.angle = 0;
+		this.rotation = 0;
 		
-		this.obj.rotation.z *= .94;
-		
-		this.obj.position.y = Math.cos(timer * .03) * 5;
-		this.momentum *= .99;
-		this.angle += (this.rotation - this.angle) * .05;
-		this.obj.position.x += Math.sin(that.angle) * that.momentum;
-		this.obj.position.z += Math.cos(that.angle) * that.momentum;
-	};
-	
-	var updateRotation = function() {
-		that.obj.rotation.y = that.rotation;
-	}
-	
-	this.turnRight = function() {
-		that.rotation -= turnSpeed;
-		that.obj.rotation.z += banking;
-		
-		updateRotation();
-	};
-	
-	this.turnLeft = function() {
-		that.rotation += turnSpeed;
-		that.obj.rotation.z -= banking;
-		updateRotation();
-	};
-	
-	this.accelerate = function() {
-		that.momentum = Math.min(that.momentum + .4, 10);
-	};
-	
-	this.boost = function() {
-		that.momentum = 20;
-	};
-	
-	this.deaccelerate = function() {
-		that.momentum = Math.max(that.momentum - .2, -5);
-	};
-	
-	(function() {
 		var material = new THREE.MeshPhongMaterial( { ambient: 0x333333, color: 0x000000, specular: 0xaaaaaa, shininess: 20, shading: THREE.SmoothShading }  );
 		loader = new THREE.JSONLoader( true );
 		
@@ -66,5 +22,47 @@ var Ship = function(scene) {
 				new THREE.ShadowVolume( that.obj );
 			}
 		});
-	})();
-}
+	}
+	
+	Ship.prototype.update = function() {
+		if(this.obj == null) {
+			return;
+		}
+		
+		this.timer++;
+		
+		this.obj.rotation.z *= .94;
+		
+		this.obj.position.y = Math.cos(this.timer * .03) * 5;
+		this.momentum *= .99;
+		this.angle += (this.rotation - this.angle) * .05;
+		this.obj.position.x += Math.sin(this.angle) * this.momentum;
+		this.obj.position.z += Math.cos(this.angle) * this.momentum;
+	}
+	
+	Ship.prototype.updateRotation = function() {
+		this.obj.rotation.y = this.rotation;
+	}
+	
+	Ship.prototype.turnRight = function() {
+		this.rotation -= turnSpeed;
+		this.obj.rotation.z += banking;
+		this.updateRotation();
+	}
+	
+	Ship.prototype.turnLeft = function() {
+		this.rotation += turnSpeed;
+		this.obj.rotation.z -= banking;
+		this.updateRotation();
+	}
+	
+	Ship.prototype.accelerate = function() {
+		this.momentum = Math.min(this.momentum + .4, 10);
+	}
+	
+	Ship.prototype.deccelerate = function() {
+		this.momentum = Math.max(this.momentum - .2, -5);
+	}
+	
+	return Ship;
+})();

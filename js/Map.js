@@ -1,7 +1,5 @@
-var Map = function(scene) {
-	
-	
-	(function() {
+var Map = (function() {
+	function Map(scene) {
 		var material = new THREE.MeshPhongMaterial( { ambient: 0x333333, color: 0x000000, specular: 0x000000, shading: THREE.SmoothShading }  );
 		var ground = new THREE.Mesh(new THREE.Plane(1000, 1000, 1, 1), material);
 		
@@ -17,5 +15,7 @@ var Map = function(scene) {
 		light1.position.y = 8000;
 		
 		scene.addLight( light1 );
-	})();
-}
+	}
+	
+	return Map;
+})();

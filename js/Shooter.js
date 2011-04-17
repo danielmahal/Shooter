@@ -1,42 +1,34 @@
-var Shooter = function(container) {
-	var shooter = this,
-		container = container,
-		camera,
-		scene,
-		renderer,
-		ship,
-		map,
-		keyHandler,
-		webSocketHandler
-	;
+var Shooter = (function() {
+	function Shooter(container) {
+		this.container = container;
+		
+		this.camera = new Camera();
+		this.scene = new THREE.Scene();
+		this.scene.fog = new THREE.FogExp2( 0xf1f9ff, 0.0012 );
+		this.keyHandler = new KeyHandler();
+		
+		this.map = new Map(this.scene);
+		this.ship = new Ship(this.scene);
+		
+		this.camera.target = this.ship;
+		
+		this.keyHandler.add(38, this.ship, this.ship.accelerate);
+		this.keyHandler.add(37, this.ship, this.ship.turnLeft);
+		this.keyHandler.add(39, this.ship, this.ship.turnRight);
+		this.keyHandler.add(40, this.ship, this.ship.deccelerate);
+		
+		this.renderer = new Renderer(this.container, this.scene, this.camera.camera);
+	}
 	
-	this.update = function() {
-		keyHandler.trigger();
-		ship.update();
-		camera.update();
-	};
+	Shooter.prototype.update = function() {
+		this.keyHandler.trigger();
+		this.ship.update();
+		this.camera.update();
+	}
 	
-	this.render = function() {
-		renderer.render();
-	};
+	Shooter.prototype.render = function() {
+		this.renderer.render();
+	}
 	
-	(function() {
-		camera = new Camera();
-		scene = new THREE.Scene();
-		scene.fog = new THREE.FogExp2( 0xf1f9ff, 0.0012 );
-		keyHandler = new KeyHandler();
-		
-		map = new Map(scene);
-		ship = new Ship(scene);
-		
-		camera.target = ship;
-		
-		keyHandler.add(38, true, ship.accelerate);
-		keyHandler.add(37, true, ship.turnLeft);
-		keyHandler.add(39, true, ship.turnRight);
-		keyHandler.add(40, true, ship.deaccelerate);
-		keyHandler.add(32, true, ship.boost);
-		
-		renderer = new Renderer(container, scene, camera.camera);
-	})();
-}
+	return Shooter;
+})();
