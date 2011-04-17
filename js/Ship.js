@@ -10,7 +10,22 @@ var Ship = (function() {
 		this.angle = 0;
 		this.rotation = 0;
 		
-		var material = new THREE.MeshPhongMaterial( { ambient: 0x333333, color: 0x000000, specular: 0xaaaaaa, shininess: 20, shading: THREE.SmoothShading }  );
+		// var material = new THREE.MeshPhongMaterial( { ambient: 0x333333, color: 0x000000, specular: 0xaaaaaa, shininess: 20, shading: THREE.SmoothShading }  );
+		
+		this.uniforms2 = {
+			time: { type: "f", value: 1.0 },
+			resolution: { type: "v2", value: new THREE.Vector2() },
+			texture: { type: "t", value: 0, texture: THREE.ImageUtils.loadTexture( "libs/three-js/examples/textures/disturb.jpg" ) }
+		};
+		
+		this.uniforms2.texture.texture.wrapS = this.uniforms2.texture.texture.wrapT = THREE.Repeat;
+		
+		var material = new THREE.MeshShaderMaterial({
+			uniforms: this.uniforms2,
+			vertexShader: document.getElementById('vertexShader').textContent,
+			fragmentShader: document.getElementById('fragment_shader2').textContent
+		});
+		
 		loader = new THREE.JSONLoader( true );
 		
 		loader.load({
