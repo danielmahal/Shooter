@@ -10,7 +10,7 @@ var Map = (function() {
 		
 		scene.addObject(ground);
 		
-		var light1 = new THREE.DirectionalLight( 0xf1f9ff, 1.5, 10000, true );
+		var light1 = new THREE.DirectionalLight( 0xf1f9ff, 1.5, 10000, false );
 		
 		light1.position.z = 0;
 		light1.position.x = 0;
