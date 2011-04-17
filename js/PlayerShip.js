@@ -12,6 +12,10 @@ var PlayerShip = (function() {
 	Husky.extend(PlayerShip, Ship);
 	
 	PlayerShip.prototype.update = function() {
+		if(this.obj == null) {
+			return;
+		}
+		
 		var positionDiff = this.targetPosition.clone().subSelf(this.obj.position);
 		var rotationDiff = this.targetRotation.clone().subSelf(this.obj.rotation);
 		
