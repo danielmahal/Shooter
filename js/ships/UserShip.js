@@ -1,5 +1,5 @@
 var UserShip = (function() {
-	var turnSpeed = .05,
+	var turnSpeed = .04,
 		banking = turnSpeed * 2.6,
 		rayDirection = new THREE.Vector3(0,-1,0),
 		rayOffsetY = 1000,
