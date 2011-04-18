@@ -20,14 +20,16 @@ var Camera = (function() {
 			
 			this.camera.target.position.x = this.target.obj.position.x;
 			this.camera.target.position.z = this.target.obj.position.z;
+			this.camera.target.position.y += (this.target.obj.position.y - this.camera.target.position.y) * .1;
 			
 			var targetPosition = {
 				x: this.target.obj.position.x - Math.sin(this.target.rotation) * distance,
-				z: this.target.obj.position.z - Math.cos(this.target.rotation) * distance
+				z: this.target.obj.position.z - Math.cos(this.target.rotation) * distance,
 			}
 			
 			this.camera.position.x += (targetPosition.x - this.camera.position.x) * .1;
 			this.camera.position.z += (targetPosition.z - this.camera.position.z) * .1;
+			this.camera.position.y += ((this.target.obj.position.y + 80) - this.camera.position.y) * .1;
 		}
 	}
 	

@@ -22,7 +22,3 @@ container.appendChild( stats.domElement );
 
 updateLoop();
 renderLoop();
-
-document.addEventListener('keydown', app.keydown);
-document.addEventListener('keyup', app.keyup);
-
