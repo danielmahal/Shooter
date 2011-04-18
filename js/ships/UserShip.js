@@ -1,6 +1,8 @@
 var UserShip = (function() {
 	var turnSpeed = .04,
-		banking = turnSpeed * 1.4
+		banking = turnSpeed * 1.4,
+		rayDirection = new THREE.Vector3(0,-1,0),
+		rayOffset = new THREE.Vector3(0,1000,0)
 	;
 	
 	function UserShip(scene, keyHandler) {
@@ -23,16 +25,27 @@ var UserShip = (function() {
 		
 		this.timer += 1;
 		
+		rayOffset = new THREE.Vector3(Math.sin(this.angle) * this.momentum*8, 1000, Math.cos(this.angle) * this.momentum*8);
+		var rayPosition = this.obj.position.clone().addSelf(rayOffset);
+		var ray = new THREE.Ray(rayPosition, rayDirection);
+		
+		var c = THREE.Collisions.rayCastNearest(ray);
+		
+		if(c && c.distance >= 0) {
+			this.targetY -= (c.distance - 60 - rayOffset.y) * .4;
+			// console.log(c.distance);
+		}
+		
+		
 		this.obj.rotation.z *= .94;
 		
-		this.obj.position.y += (this.targetY - this.obj.position.y) * 1;
+		this.obj.position.y += (this.targetY - this.obj.position.y) * .05;
 		
 		this.momentum *= .99;
 		this.angle += (this.rotation - this.angle) * .05;
 		
 		this.obj.position.x += Math.sin(this.angle) * this.momentum;
 		this.obj.position.z += Math.cos(this.angle) * this.momentum;
-		
 	}
 	
 	UserShip.prototype.turnRight = function() {
