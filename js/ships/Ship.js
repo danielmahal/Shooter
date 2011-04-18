@@ -10,7 +10,7 @@ var Ship = (function() {
 		this.angle = 0;
 		this.rotation = 0;
 		
-		this.shipColor = new THREE.Vector3(0, 1, 0);
+		this.shipColor = new THREE.Vector3(.3, .3, .5);
 		
 		var material = new THREE.MeshShaderMaterial({
 			uniforms: {

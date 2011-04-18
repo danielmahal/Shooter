@@ -4,7 +4,7 @@ var Camera = (function() {
 	function Camera() {
 		this.target = null;
 		
-		this.camera = new THREE.Camera( 60, window.innerWidth / window.innerHeight, 1, 2000 );
+		this.camera = new THREE.Camera( 60, window.innerWidth / window.innerHeight, 1, 3000 );
 		
 		this.camera.position.y = 80;
 		this.camera.target.position.y = 40;

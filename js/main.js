@@ -1,5 +1,3 @@
-
-
 var updateLoop = function() {
 	requestAnimationFrame(updateLoop);
 	app.update();

@@ -1,18 +1,18 @@
 var Map = (function() {
 	function Map(scene) {
-		scene.fog = new THREE.FogExp2( 0xf1f9ff, 0.002 );
+		scene.fog = new THREE.FogExp2( 0xf1f9ff, 0.0008 );
 		
 		var material = new THREE.MeshPhongMaterial( { ambient: 0x333333, color: 0x000000, specular: 0x333333, wireframe: true }  );
 		var geometry = new THREE.Plane(3000, 3000, 40, 40);
 		
 		for(var i = 0, len = geometry.vertices.length; i < len; i++) {
-			geometry.vertices[i].position.z = Math.cos(i*.01) * 70;
+			geometry.vertices[i].position.z = Math.cos(i*.01) * 80 + Math.random() * 30;
 		}
 		
 		this.ground = new THREE.Mesh(geometry, material);
 		
 		this.ground.rotation.x = (Math.PI * 3)/2;
-		this.ground.position.y = -100;
+		this.ground.position.y = -300;
 		
 		THREE.Collisions.colliders.push( THREE.CollisionUtils.MeshColliderWBox(this.ground));
 		
