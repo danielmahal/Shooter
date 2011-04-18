@@ -9,6 +9,8 @@ var UserShip = (function() {
 		keyHandler.add(39, this, this.turnRight);
 		keyHandler.add(40, this, this.deccelerate);
 		
+		this.targetY = 20;
+		
 		UserShip.parent.constructor.call(this, scene);
 	}
 	
@@ -23,20 +25,14 @@ var UserShip = (function() {
 		
 		this.obj.rotation.z *= .94;
 		
-		// this.obj.position.y += Math.cos(this.timer * .03) * .5;
-		// this.obj.position.y *= 1;
+		this.obj.position.y += (this.targetY - this.obj.position.y) * 1;
 		
 		this.momentum *= .99;
 		this.angle += (this.rotation - this.angle) * .05;
+		
 		this.obj.position.x += Math.sin(this.angle) * this.momentum;
 		this.obj.position.z += Math.cos(this.angle) * this.momentum;
 		
-		var r = new THREE.Ray(this.obj.position, new THREE.Vector3(0,-1, 0));
-		var c = THREE.Collisions.rayCastNearest(r);
-		
-		if(c && c.distance >= 0) {
-			this.obj.position.y -= ((c.distance) - 100) * .02;
-		}
 	}
 	
 	UserShip.prototype.turnRight = function() {
