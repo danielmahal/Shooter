@@ -12,13 +12,15 @@ var Ship = (function() {
 		
 		this.shipColor = new THREE.Vector3(.3, .3, .5);
 		
-		var material = new THREE.MeshShaderMaterial({
-			uniforms: {
-				shipColor: { type: "v3", value: this.shipColor }
-			},
-			vertexShader: document.getElementById('vertexShader').textContent,
-			fragmentShader: document.getElementById('fragment_shader2').textContent
-		});
+		// var material = new THREE.MeshShaderMaterial({
+		// 	uniforms: {
+		// 		shipColor: { type: "v3", value: this.shipColor }
+		// 	},
+		// 	vertexShader: document.getElementById('vertexShader').textContent,
+		// 	fragmentShader: document.getElementById('fragment_shader2').textContent
+		// });
+		
+		var material = new THREE.MeshPhongMaterial( { ambient: 0x333333, color: 0x000000, specular: 0x333333, wireframe: false }  );
 		
 		loader = new THREE.JSONLoader( true );
 		
