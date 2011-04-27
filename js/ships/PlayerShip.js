@@ -1,5 +1,5 @@
 var PlayerShip = (function() {
-	var delayMultiplier = .2;
+	var delayMultiplier = 1;
 	var delayMultiplierVector = new THREE.Vector3(delayMultiplier,delayMultiplier,delayMultiplier);
 	
 	function PlayerShip(scene, keyHandler) {

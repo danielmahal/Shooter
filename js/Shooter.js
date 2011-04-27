@@ -14,6 +14,8 @@ var Shooter = (function() {
 		this.model.map = new Map(this.model.scene);
 		this.model.userShip = new UserShip(this.model.scene, this.keyHandler);
 		
+		this.model.hud = new HUD(this.model.userShip);
+		
 		this.model.camera.target = this.model.userShip;
 		
 		this.socketHandler = new SocketHandler(this.model);
@@ -30,6 +32,8 @@ var Shooter = (function() {
 		
 		this.model.userShip.update();
 		this.model.userShip.sendUpdate(this.socketHandler);
+		
+		this.model.hud.update(this.model.userShip);
 		
 		this.model.camera.update();
 	}

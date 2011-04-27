@@ -10,26 +10,20 @@ var Ship = (function() {
 		this.angle = 0;
 		this.rotation = 0;
 		
-		this.shipColor = new THREE.Vector3(.3, .3, .5);
-		
-		var material = new THREE.MeshShaderMaterial({
-			uniforms: {
-				shipColor: { type: "v3", value: this.shipColor }
-			},
-			vertexShader: document.getElementById('vertexShader').textContent,
-			fragmentShader: document.getElementById('fragment_shader2').textContent
-		});
-		
 		loader = new THREE.JSONLoader( true );
+		loader.load({ model: "models/ship.js", callback: function( geometry ) { that.modelLoaded.call(that, geometry); }});
+	}
+	
+	Ship.prototype.modelLoaded = function(geometry) {
+		var material = new THREE.MeshPhongMaterial( { ambient: 0x333333, color: 0x000000, specular: 0x333333, wireframe: false }  );
+		this.obj = THREE.SceneUtils.addMesh( this.scene, geometry, 1, 0, 0, 0, 0, 0, 0, material );
+		this.obj.position.y = 100;
 		
-		loader.load({
-			model: "models/ship.js",
-			callback: function( geometry ) {
-				that.obj = THREE.SceneUtils.addMesh( scene, geometry, 20, 0, 0, 0, 0, 0, 0, material );
-				// that.shadow = new THREE.ShadowVolume( that.obj );
-				that.obj.position.y = 100;
-			}
-		});
+		var material = new THREE.MeshPhongMaterial( { color: 0x000000, wireframe: true }  );
+		var geometry = new THREE.Cube(20, 20, 20)
+		this.hitbox = new THREE.Mesh(geometry, material);
+		
+		this.obj.addChild(this.hitbox);
 	}
 	
 	Ship.prototype.updateRotation = function() {

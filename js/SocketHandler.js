@@ -9,7 +9,7 @@ var SocketHandler = (function() {
 		
 		this.hasConnection = false;
 		
-		this.socket = new io.Socket('84.215.130.126', {
+		this.socket = new io.Socket('127.0.0.1', {
 			port: 8081,
 			transports: ['websocket']
 		});
