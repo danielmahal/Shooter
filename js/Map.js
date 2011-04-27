@@ -6,14 +6,14 @@ var Map = (function() {
 		var geometry = new THREE.Plane(3000, 3000, 20, 20);
 		
 		for(var i = 0, len = geometry.vertices.length; i < len; i++) {
-			var z = Math.cos(i*.02) * 80 + Math.random() * 30;
+			var z = Math.random() * 30;
 			geometry.vertices[i].position.z = z;
 		}
 		
 		this.ground = new THREE.Mesh(geometry, material);
 		
 		this.ground.rotation.x = (Math.PI * 3)/2;
-		this.ground.position.y = -300;
+		this.ground.position.y = 0;
 		
 		THREE.Collisions.colliders.push( THREE.CollisionUtils.MeshColliderWBox(this.ground));
 		
