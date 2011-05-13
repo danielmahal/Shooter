@@ -4,24 +4,19 @@ var app = require('express').createServer();
 
 app.configure(function(){
     app.use(express.methodOverride());
-    app.use(express.bodyParser());
-    app.use(app.router);
+	app.use(express.bodyParser());
+	app.use(app.router);
+	app.use(express.static(__dirname));
 });
+// 
+// app.get('/', function(req, res){
+// 	res.send('hello world');
+// });
 
 // server.configure('development', function(){
 //     server.use(express.static(__dirname));
 //     server.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 // });
-
-app.configure('development', function(){
-    app.use(express.static(__dirname));
-    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
-
-app.configure('production', function(){
-    app.use(express.static(__dirname));
-    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
 
 server.listen(9984);
 
