@@ -1,16 +1,21 @@
 // var http = require('http');
 var io = require('socket.io');
-var express = require('express');
+var app = require('express').createServer();
 
-var server = express.createServer();
+app.configure(function(){
+    app.use(express.methodOverride());
+    app.use(express.bodyParser());
+    app.use(app.router);
+});
 
 // server.configure('development', function(){
 //     server.use(express.static(__dirname));
 //     server.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 // });
 
-server.get('/', function(req, res){
-  res.send('hello world');
+app.configure('development', function(){
+    app.use(express.static(__dirname));
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 server.listen(9984);
