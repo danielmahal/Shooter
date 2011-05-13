@@ -2,6 +2,7 @@ var http = require('http');
 var io = require('socket.io');
 var fs = require('fs');
 var path = require("path");
+var url = require("url");
 
 var server = http.createServer(function (request, response) {
 	var uri = url.parse(request.url).pathname;
