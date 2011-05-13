@@ -18,6 +18,11 @@ app.configure('development', function(){
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
+app.configure('production', function(){
+    app.use(express.static(__dirname));
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
 server.listen(9984);
 
 // var server = http.createServer(function (req, res) {
