@@ -4,9 +4,13 @@ var express = require('express');
 
 var server = express.createServer();
 
-server.configure('development', function(){
-    server.use(express.static(__dirname));
-    server.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+// server.configure('development', function(){
+//     server.use(express.static(__dirname));
+//     server.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+// });
+
+server.get('/', function(req, res){
+  res.send('hello world');
 });
 
 server.listen(9984);
