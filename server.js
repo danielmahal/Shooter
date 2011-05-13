@@ -10,9 +10,9 @@ app.configure(function(){
 	app.use(express.static(__dirname));
 });
 // 
-// app.get('/', function(req, res){
-// 	res.send('hello world');
-// });
+app.get('/', function(req, res){
+	res.send('hello world');
+});
 
 // server.configure('development', function(){
 //     server.use(express.static(__dirname));
