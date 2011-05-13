@@ -8,11 +8,21 @@
 				margin: 0;
 				padding: 0;
 			}
+			
+			#crosshair {
+				position: absolute;
+				top: 100px;
+				left: 100px;
+				background: red;
+				width: 5px;
+				height: 5px;
+			}
 		</style>
 		<title>Shooter</title>
 	</head>
 	<body>
 		<div id="container"></div>
+		<div id="crosshair"></div>
 		
 		<script id="fragment_shader2" type="x-shader/x-fragment"> 
 			uniform float time;

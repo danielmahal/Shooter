@@ -18,13 +18,6 @@ var Ship = (function() {
 		var material = new THREE.MeshPhongMaterial( { ambient: 0x333333, color: 0x000000, specular: 0x333333, wireframe: false }  );
 		this.obj = THREE.SceneUtils.addMesh( this.scene, geometry, 1, 0, 0, 0, 0, 0, 0, material );
 		this.obj.position.y = 100;
-		
-		var material = new THREE.MeshPhongMaterial( { color: 0x000000, wireframe: true }  );
-		var geometry = new THREE.Cube(40, 20, 30);
-		this.hitbox = new THREE.Mesh(geometry, material);
-		this.hitbox.position.z = -10;
-		
-		this.obj.addChild(this.hitbox);
 	}
 	
 	Ship.prototype.updateRotation = function() {

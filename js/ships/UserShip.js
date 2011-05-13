@@ -22,12 +22,27 @@ var UserShip = (function() {
 	
 	Husky.extend(UserShip, Ship);
 	
+	UserShip.prototype.modelLoaded = function(geometry) {
+		UserShip.parent.modelLoaded.call(this, geometry);
+		
+		var material = new THREE.MeshPhongMaterial( { color: 0x000000, wireframe: true }  );
+		var geometry = new THREE.Cube(40, 20, 30);
+		this.hitbox = new THREE.Mesh(geometry, material);
+		this.hitbox.position.z = -10;
+		
+		this.obj.addChild(this.hitbox);
+	}
+	
 	UserShip.prototype.update = function() {
 		if(this.obj == null) {
 			return;
 		}
 		
 		this.timer += 1;
+		
+		if(this.timer %20 == 0) {
+			console.log(this.hitbox);
+		}
 		
 		// Deaccelerate
 		this.momentum *= .99;
