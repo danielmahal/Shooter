@@ -9,16 +9,24 @@ var SocketHandler = (function() {
 		
 		this.hasConnection = false;
 		
-		this.socket = new io.Socket('ws://shooter.nodester.com/', {
-			port: 9982,
+		this.socket = new io.Socket('shooter.nodester.com', {
+			port: 80,
 			transports: ['websocket']
 		});
-		
-		this.socket.connect();
 		
 		this.socket.on('connect', this.connect);
 		this.socket.on('disconnect', this.disconnect);
 		this.socket.on('message', this.processMessage);
+		
+		this.socket.on('connecting', function(e) {
+			console.log('connecting...', e);
+		});
+		
+		this.socket.on('connect_failed', function(e) {
+			console.log('connection failed', e);
+		});
+		
+		this.socket.connect();
 	}
 	
 	SocketHandler.prototype.welcomeHandler = function(data) {

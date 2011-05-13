@@ -6,7 +6,7 @@ var server = http.createServer(function (req, res) {
   res.end('Hello World\nApp (shooter) is running..');
 });
 
-server.listen(process.ENV['app_port']);
+server.listen(9984);
 
 var socket = io.listen(server); 
 socket.on('connection', function(client){
