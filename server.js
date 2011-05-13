@@ -1,5 +1,29 @@
 var http = require('http');
-http.createServer(function (req, res) {
+var io = require('socket.io');
+
+server = http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/plain'});
   res.end('Hello World\nApp (shooter) is running..');
 }).listen(9983);
+
+var socket = io.listen(server); 
+socket.on('connection', function(client){
+	var id = client.sessionId;
+	
+	client.send({
+		'type': 'welcome',
+		'id': id
+	});
+	
+	client.on('message', function(data){
+		data.id = id;
+		socket.broadcast(data);
+	});
+	
+	client.on('disconnect', function(){
+		socket.broadcast({
+			'type': 'userDisconnect',
+			'id': id
+		});
+	}); 
+});
