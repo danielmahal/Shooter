@@ -1,6 +1,7 @@
 // var http = require('http');
 var io = require('socket.io');
-var app = require('express').createServer();
+var express = require('express');
+var app = express.createServer();
 
 app.configure(function(){
     app.use(express.methodOverride());
