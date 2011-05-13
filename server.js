@@ -1,9 +1,22 @@
 var http = require('http');
 var io = require('socket.io');
+var fs = require('fs');
+var path = require("path");
 
-var server = http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\nApp (shooter) is running..');
+var server = http.createServer(function (request, response) {
+	var uri = url.parse(request.url).pathname;
+	var filename = path.join(process.cwd(), uri);
+	path.exists(filename, function(exists) {
+		if(exists) {
+			fs.readFile(filename, "binary", function(err, file) {
+				if(!err) {
+					response.sendHeader(200);
+					response.write(file, "binary");
+					response.close();
+				}
+			});
+		}
+	});
 });
 
 server.listen(9984);
