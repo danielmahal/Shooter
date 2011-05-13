@@ -5,7 +5,7 @@ var express = require('express');
 var server = express.createServer();
 
 server.configure('development', function(){
-    server.use(express.static(__dirname + '/public'));
+    server.use(express.static(__dirname));
     server.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
