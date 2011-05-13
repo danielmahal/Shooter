@@ -19,7 +19,7 @@ app.configure(function(){
 //     server.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 // });
 
-server.listen(9984);
+app.listen(9984);
 
 // var server = http.createServer(function (req, res) {
 //   res.writeHead(200, {'Content-Type': 'text/plain'});
