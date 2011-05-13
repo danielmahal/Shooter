@@ -40,10 +40,6 @@ var UserShip = (function() {
 		
 		this.timer += 1;
 		
-		if(this.timer %20 == 0) {
-			console.log(this.hitbox);
-		}
-		
 		// Deaccelerate
 		this.momentum *= .99;
 		

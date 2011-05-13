@@ -9,7 +9,7 @@ var SocketHandler = (function() {
 		
 		this.hasConnection = false;
 		
-		this.socket = new io.Socket('shooter.nodester.com', {
+		this.socket = new io.Socket('ws://shooter.nodester.com/', {
 			port: 9982,
 			transports: ['websocket']
 		});

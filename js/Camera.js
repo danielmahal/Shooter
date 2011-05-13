@@ -8,8 +8,6 @@ var Camera = (function() {
 		
 		this.camera.position.y = 80;
 		this.camera.target.position.y = 40;
-		
-		console.log(this.camera);
 	}
 	
 	Camera.prototype.setTarget = function(obj) {
